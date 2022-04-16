@@ -1,16 +1,12 @@
 package controllers
 
 import (
-	"example/main/database"
-
 	"github.com/gofiber/fiber/v2"
 )
 
 func CreateNote(ctx *fiber.Ctx) error {
-	db := database.DBconn
 	type request struct {
 	}
-	var body request 
 	return nil
 }
 
