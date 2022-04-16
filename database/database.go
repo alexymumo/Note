@@ -19,6 +19,10 @@ func initDatabase() {
 		panic("failed to connect to database")
 	}
 	fmt.Println("Database connected successfully")
+
+}
+
+func AutoMigrate() {
 	DBconn.AutoMigrate(&entity.Note{})
 	fmt.Println("Database migrated")
 }
