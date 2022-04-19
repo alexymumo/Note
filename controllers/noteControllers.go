@@ -14,20 +14,18 @@ import (
 
 func CreateNote(ctx *fiber.Ctx) error {
 	var note entity.Note
-	err := ctx.BodyParser(&note)
-	if err != nil {
+	if err := ctx.BodyParser(&note); err != nil {
 		return err
 	}
 	database.DBconn.Create(&note)
 	return ctx.JSON(fiber.Map{
-		"statusCode": http.StatusOK,
+		"StatusCode": http.StatusOK,
 		"message":    "Created Successfully",
 	})
 }
 
 func GetNoteByID(ctx *fiber.Ctx) error {
 	return nil
-
 }
 
 /*
@@ -37,11 +35,7 @@ func GetNoteByID(ctx *fiber.Ctx) error {
  */
 
 func GetNotes(ctx *fiber.Ctx) error {
-	db := database.DBconn
-	var notes []entity.Note
-	db.Find(&notes)
-	return ctx.Status(fiber.StatusOK).JSON(notes)
-
+	return nil
 }
 
 func DeleteNote(ctx *fiber.Ctx) error {

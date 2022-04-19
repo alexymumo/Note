@@ -10,7 +10,7 @@ import (
 
 var DBconn *gorm.DB
 
-func initDatabase() {
+func Connect() {
 	var err error
 
 	// connect to sqlite
