@@ -9,10 +9,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-/*
-* function to create a note
- */
-
+// save note
 func CreateNote(ctx *fiber.Ctx) error {
 	db := database.DBconn
 	note := new(entity.Note)
@@ -29,6 +26,7 @@ func CreateNote(ctx *fiber.Ctx) error {
 
 }
 
+// Get note by id
 func GetNote(c *fiber.Ctx) error {
 	db := database.DBconn
 	var note entity.Note
@@ -40,10 +38,17 @@ func GetNote(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{"status": "success", "message": "Note found", "data": note})
 }
 
+// Get all notes
+func GetAllNotes(c *fiber.Ctx) error {
+	return nil
+}
+
+// Delete note by id
 func DeleteNote(c *fiber.Ctx) error {
 	return nil
 }
 
+// Update note
 func UpdateNote(c *fiber.Ctx) error {
 	return nil
 }

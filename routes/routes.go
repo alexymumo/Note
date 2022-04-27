@@ -13,7 +13,15 @@ func Setup(app *fiber.App) {
 	//Post note
 	api.Post("/", controllers.CreateNote)
 
-	//Get note
+	//Get note by id
 	api.Get("/", controllers.GetNote)
+
+	//Delete note by id
+	api.Delete("/", controllers.DeleteNote)
+
+	// Update note
+	api.Put("/", controllers.UpdateNote)
+
+	api.Get("/", controllers.GetAllNotes)
 
 }
