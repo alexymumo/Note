@@ -3,7 +3,8 @@ package controllers
 import (
 	"example/main/database"
 	"example/main/entity"
-	"net/http"
+
+	"github.com/google/uuid"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -13,31 +14,36 @@ import (
  */
 
 func CreateNote(ctx *fiber.Ctx) error {
-	var note entity.Note
-	if err := ctx.BodyParser(&note); err != nil {
-		return err
+	db := database.DBconn
+	note := new(entity.Note)
+	err := ctx.BodyParser(note)
+	if err != nil {
+		return ctx.Status(500).JSON(fiber.Map{"status": "error", "message": "Review your input", "data": err})
 	}
-	database.DBconn.Create(&note)
-	return ctx.JSON(fiber.Map{
-		"StatusCode": http.StatusOK,
-		"message":    "Created Successfully",
-	})
+	note.ID = uuid.New()
+	err = db.Create(&note).Error
+	if err != nil {
+		return ctx.Status(500).JSON(fiber.Map{"status": "error", "message": "Could not create note", "data": err})
+	}
+	return ctx.JSON(fiber.Map{"status": "success", "message": "Created Note", "data": note})
+
 }
 
-func GetNoteByID(ctx *fiber.Ctx) error {
+func GetNote(c *fiber.Ctx) error {
+	db := database.DBconn
+	var note entity.Note
+	id := c.Params("id")
+	db.Find(&note, "id = ?", id)
+	if note.ID == uuid.Nil {
+		return c.Status(404).JSON(fiber.Map{"status": "error", "message": "No note", "data": nil})
+	}
+	return c.JSON(fiber.Map{"status": "success", "message": "Note found", "data": note})
+}
+
+func DeleteNote(c *fiber.Ctx) error {
 	return nil
 }
 
-/*
-* @func GetNotes
-* Get all notes
-* fiber context
- */
-
-func GetNotes(ctx *fiber.Ctx) error {
-	return nil
-}
-
-func DeleteNote(ctx *fiber.Ctx) error {
+func UpdateNote(c *fiber.Ctx) error {
 	return nil
 }

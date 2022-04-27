@@ -8,7 +8,12 @@ import (
 
 func Setup(app *fiber.App) {
 
-	api := app.Group("api")
-	api.Post("save", controllers.CreateNote)
+	api := app.Group("/note")
+
+	//Post note
+	api.Post("/", controllers.CreateNote)
+
+	//Get note
+	api.Get("/", controllers.GetNote)
 
 }

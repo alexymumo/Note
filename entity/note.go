@@ -1,13 +1,13 @@
 package entity
 
 import (
+	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
 type Note struct {
 	gorm.Model
-	ID          int    `gorm:"primaryKey"`
-	Title       string `json:"title"`
-	Description string `json:"description"`
-	Completed   bool   `json:"completed"`
+	ID          uuid.UUID `gorm:"type:uuid"`
+	Title       string    `json:"title"`
+	Description string    `json:"description"`
 }
